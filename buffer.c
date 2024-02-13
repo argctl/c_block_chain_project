@@ -53,7 +53,7 @@ int block(int *lowkey, int *keylow, int *change) {
   for (int i = 0; i < 8; i++) {
     int* key = ((int*)lowkey + (i * sizeof(char))); // iterate char size var to get opcode key change
     char* yek = ((char*)change) + (djk * (sizeof(int*) + sizeof(char)));
-    int x = *yek;
+    int x = *(int*)yek;
     printf("\n char sized int by pointer: %d", x);
     if (*key == x) {
       int* wol = ((int*)keylow) + i * sizeof(int *); // iterate int pointer size var to get value change of opcode result
