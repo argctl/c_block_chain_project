@@ -51,12 +51,13 @@ int *stub () {
 int block(int *lowkey, int *keylow, int *change) {
   int djk = 0;
   for (int i = 0; i < 8; i++) {
-    int* key = (int*)(lowkey + (i * sizeof(char))); // iterate char size var to get opcode key change
-    char* yek = (int*)(change + (djk * (sizeof(int *) + sizeof(char)))); //*? 
-    int y = *yek;
-    if (*key == y) {
-      int* wol = (int*)(keylow + i * sizeof(int *)); // iterate int pointer size var to get value change of opcode result
-      int* low = (int*)(change + (djk * (sizeof(int *) + sizeof(char))) + sizeof(char)); //*? 
+    int* key = ((int*)lowkey + (i * sizeof(char))); // iterate char size var to get opcode key change
+    char* yek = ((char*)change) + (djk * (sizeof(int*) + sizeof(char)));
+    int x = *yek;
+    printf("\n char sized int by pointer: %d", x);
+    if (*key == x) {
+      int* wol = ((int*)keylow) + i * sizeof(int *); // iterate int pointer size var to get value change of opcode result
+      int* low = ((int*)change) + (djk * (sizeof(int*) + sizeof(char))) + sizeof(char); //*? 
       djk += 1;
       key = &wol;
     }
