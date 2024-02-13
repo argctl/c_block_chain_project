@@ -51,11 +51,10 @@ int block(int *lowkey, int *keylow, int *change) {
   int djk = 0;
     printf("\n keylow: %d", *keylow);
   for (int i = 0; i < 8; i++) {
-    //int key = lowkey[i]; //a char type operand 
     int* key = (int*)(lowkey + i * sizeof(int *));
     printf(" key: %d", key);
     int* yek = (int*)(change + djk * (sizeof(int *) + sizeof(char))); //*? 
-    int* low = (int*)(change + djk * (sizeof(int *) + sizeof(char)) + sizeof(char)); //*? 
+    int* low = (int*)(change + (djk * (sizeof(int *) + sizeof(char))) + sizeof(char)); //*? 
     printf(" *yek: %d, *key: %d", *yek, *key);
     printf(" low: %d", *low);
     printf(" djk: %d", djk);
