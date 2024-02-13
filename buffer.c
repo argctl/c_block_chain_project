@@ -47,11 +47,12 @@ int *stub () {
 // guess magic number to change, i.e. foobar is temp opcode to change footballarg foo_ba___r_
 // creates variable length integer locking system with updates that chain
 // pass the memory address in, copy, then change
+//block(chars, sums, change);
 int block(int *lowkey, int *keylow, int *change) {
   int djk = 0;
-    printf("\n keylow: %d", *keylow);
   for (int i = 0; i < 8; i++) {
-    int* key = (int*)(lowkey + i * sizeof(int *));
+    int* key = (int*)(lowkey + i * sizeof(char));
+    int* wol = (int*)(keylow + i * sizeof(int *));
     printf(" key: %d", key);
     int* yek = (int*)(change + djk * (sizeof(int *) + sizeof(char))); //*? 
     int* low = (int*)(change + (djk * (sizeof(int *) + sizeof(char))) + sizeof(char)); //*? 
@@ -61,9 +62,8 @@ int block(int *lowkey, int *keylow, int *change) {
     if (*key == *yek) {
       printf("\n change maker");
       djk += 1;
-      key = &low;
+      key = &wol;
     }
-    printf("\n keylow: %d", *keylow);
     // TODO - shift off of *change irregular shapped memory "array" 
   }
   // TODO - ?
