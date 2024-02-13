@@ -52,6 +52,13 @@ int block(int *lowkey, int *keylow, int *change) {
   for (int i = 0; i < 8; i++) {
     int key = lowkey[i]; //a char type operand 
     printf(" key: %d", key);
+    int* yek = (int*)(djk * 4 * sizeof(int *) + 4 * sizeof(char)); //*? 
+    int* low = (int*)(sizeof(char) + djk * 4 * sizeof(int *) + 4 * sizeof(char)); //*? 
+    if (key == *yek) {
+      djk += 1;
+      keylow[i] = low;
+    }
+    printf("\n keylow: %d", keylow);
     // TODO - shift off of *change irregular shapped memory "array" 
   }
   // TODO - ?
