@@ -14,9 +14,10 @@
 // 1, 1, 7, 2, 4, 5, 7, 7
 
 // not a stub probably but for test input, probably a driver
-int[] stub () {
+int *stub () {
   int *change = malloc(4 * sizeof(int *) + 4 * sizeof(char));  
-  change[1.5]
+  //change[1.5]
+  return change;
 }
 
 // guess magic number to change, i.e. foobar is temp opcode to change footballarg foo_ba___r_
@@ -35,6 +36,10 @@ int *block(int *lowkey, int *keylow, int *change) {
 }
 
 int main() {
+  char opt[9];
+  printf("Enter 8 character opcode for vm: "); 
+  scanf("%8s", opt);
+  printf("you entered: %s\n", opt); 
   char array[8];
   int *sums = malloc(8 * sizeof(int *));
   int *chars = malloc(8 * sizeof(char)); // *?
@@ -58,7 +63,7 @@ int main() {
 
 
 
-  block(&sums, &chars, &stub()); 
+  //block(&sums, &chars, &stub()); 
 
   free(sums);
   return 0;
