@@ -9,7 +9,7 @@
 // opcode appendage - fill 25 percent of full opcode to verify next chain
 // (A, C, F, G, E, D, L, L) x 50% of buffer space
 // (0, 1, 2, 3, 4, 5, 6, 7) x 100 % of buffer space
-// block (op) 
+// block (op) // so important to stich next ops for validator send!
 // (A1, F7, G2, L7) x 75% of buffer space + optional 25% (next instruction opcode)
 // A, C, F, G, E, D, L, L
 // 1, 1, 7, 2, 4, 5, 7, 7
@@ -51,29 +51,21 @@ int *stub () {
 int block(int *lowkey, int *keylow, int *change) {
   int djk = 0;
   for (int i = 0; i < 8; i++) {
-    int* key = ((int*)lowkey + (i * sizeof(char))); // iterate char size var to get opcode key change
-    char* yek = ((char*)change) + (djk * (sizeof(int*) + sizeof(char)));
-    int x = *(int*)yek;
-    printf("\n char sized int by pointer: %d", x);
-    if (*key == x) {
-      int* wol = ((int*)keylow) + i * sizeof(int *); // iterate int pointer size var to get value change of opcode result
-      int* low = ((int*)change) + (djk * (sizeof(int*) + sizeof(char))) + sizeof(char); //*? 
+    int* key = &lowkey + (i * sizeof(char)); // iterate char size var to get opcode key change
+    int* yek = &change + (djk * (sizeof(int*) + sizeof(char)));
+    if (*key == *yek) {
+      int* wol = &keylow + (i * sizeof(int *)); // iterate int pointer size var to get value change of opcode result
+      int* low = &change + (djk * (sizeof(int*) + sizeof(char))) + sizeof(char); //*? 
       djk += 1;
       key = &wol;
     }
     // TODO - shift off of *change irregular shapped memory "array" 
   }
-  // TODO - ?
-  // create new pointer memory allocation with input vars (lowkey, keylow)
-  // use lowkey (char analogue) to set keylow with change
-  // push to a stack that can be referenced by block number
-  //for (int i = 0; i < 8; i++) {
-    // change is truly variable length if we just subject bytes for each iteration?
-    //if (lowkey[i] == change[i])
-  //} 
+  // TODO - nothing, another function can check pointer location for correct opcode pairings.
   return 0;
 }
 // input source
+// same pointers could allow for validation in this function
 int* ledger() {
   char opt[9];
   printf("Enter 8 character opcode for vm: "); 
@@ -81,7 +73,8 @@ int* ledger() {
   printf("you entered: %s\n", opt); 
   int *change = malloc(4 * sizeof(int *) + 4 * sizeof(char));  
   for (int i = 0; i < 8; i++) {
-    change[i] = opt[i];
+    // feed in correctly - set by reference (memory location in struct (don't use struct so i can time travel)
+    change = opt[i];
   }
   printf("\n changes: %d", change);
   return change;
@@ -105,6 +98,7 @@ int main() {
     printf("%d ", chars[i]);
   }
   block(chars, sums, change);
+  // TODO - validate - chain of pointer diffs with ledger(out?)
 
   //printf("\n ref (address of pointer)/pointer/pointer! \n:");
   //printf("&chars(d): %d ", &chars);
