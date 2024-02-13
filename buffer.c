@@ -49,18 +49,20 @@ int *stub () {
 // pass the memory address in, copy, then change
 int block(int *lowkey, int *keylow, int *change) {
   int djk = 0;
+    printf("\n keylow: %d", *keylow);
   for (int i = 0; i < 8; i++) {
     int key = lowkey[i]; //a char type operand 
     printf(" key: %d", key);
-    int* yek = (int*)(change + djk * 4 * sizeof(int *) + 4 * sizeof(char)); //*? 
-    int* low = (int*)(change + sizeof(char) + djk * 4 * sizeof(int *) + 4 * sizeof(char)); //*? 
-    printf(" yek: %d", yek);
+    int* yek = (int*)(change + djk * (sizeof(int *) + sizeof(char))); //*? 
+    int* low = (int*)(change + djk * (sizeof(int *) + sizeof(char) * 2)); //*? 
+    printf(" *yek: %d, key: %d", *yek, key);
     printf(" low: %d", low);
     if (key == *yek) {
+      printf("\n change maker");
       djk += 1;
       keylow[i] = *low;
     }
-    printf("\n keylow: %d", keylow);
+    printf("\n keylow: %d", *keylow);
     // TODO - shift off of *change irregular shapped memory "array" 
   }
   // TODO - ?
