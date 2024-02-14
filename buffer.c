@@ -6,8 +6,11 @@
 // DO YOU HAVE THE RIGHT DATA TRANSFORMATIONS?
 // virtual register - is one full 8 int array
 // half register - is the size of 4 ints
+// THIS IS OUR IDEAL
 // opcode appendage - fill 25 percent of full opcode to verify next chain
+// each space is 0000 to 1111
 // (A, C, F, G, E, D, L, L) x 50% of buffer space
+// each space is 00000000 to 11111111
 // (0, 1, 2, 3, 4, 5, 6, 7) x 100 % of buffer space
 // block (op) // so important to stich next ops for validator send!
 // (A1, F7, G2, L7) x 75% of buffer space + optional 25% (next instruction opcode)
@@ -15,6 +18,10 @@
 // 1, 1, 7, 2, 4, 5, 7, 7
 
 // 25% = A, F, G, L
+
+// Our reality:
+// char with less-than-pointer level memory sharing capability (those chars aren't pointin' at my charzar, king)
+// int pointer to share the result mapped to our opcode in chain.
 
 // not a stub probably but for test input, probably a driver
 int pointers () {
@@ -74,7 +81,27 @@ int* ledger() {
   int *change = malloc(4 * sizeof(int *) + 4 * sizeof(char));  
   for (int i = 0; i < 8; i++) {
     // feed in correctly - set by reference (memory location in struct (don't use struct so i can time travel)
-    change = opt[i];
+    printf("\n value at %d: %d", i, opt[i]);
+    printf("\n value at %d: %c", i, opt[i]);
+    if (i % 2 == 0) {
+      char* c = &change + (i * sizeof(int *) + sizeof(char));
+      c = &opt[i];
+      char cc = *c;
+      printf("\n psst, char: %c", cc);
+      // TODO - move to  else to always collect int
+    } else {
+      int* djk = &change + (i * sizeof(int *) + sizeof(char) * 2);
+      char s[] = {opt[i]};
+      //*djk = atoi(s);
+      *djk = opt[i] - '0';
+      printf("\n psst, int: %d", *djk);
+      // TODO - add char memory space at pointer memory allocation
+      // set int pointer (parse int?)
+    }
+    
+    //change = opt[i];
+    //printf("value at pointer: %d", change);
+    //change += sizeof(int *) + sizeof(char);
   }
   printf("\n changes: %d", change);
   return change;
