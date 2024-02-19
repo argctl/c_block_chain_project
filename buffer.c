@@ -38,6 +38,11 @@ int block(char* lowkey, int* keylow, void* change) {
     printf("\n key: %c", key);
     if (key == *yek) {
       printf("\n key: %d, *yek: %d: ", key, *yek);
+      //int wol = *((int*)keylow + (i * sizeof(int *))); // iterate int pointer size var to get value change of opcode result
+      int wol = keylow[i];
+      int* low = *(int**)((void*)change + ((djk + 1) * (sizeof(int*) + sizeof(char))) + sizeof(char)); //*? 
+      printf("\n wol, *low: %d, %d", wol, *low);
+      keylow[i] = *low;
       djk += 2;
     }
     //printf("\nkey, *yek: %c, %c", key, *yek);
@@ -104,7 +109,15 @@ int main() {
     chars[i] = array[i];
     printf("\n chars[%d]: %c", i, chars[i]);
   }
+  printf("\n before: \n");
+  for (int i = 0; i < 8; i++) {
+    printf("%d, ", sums[i]);
+  }
   block(chars, sums, change);
+  printf("changed: ?\n");
+  for (int i = 0; i < 8; i++) {
+    printf("%d, ", sums[i]);
+  }
   // TODO - validate - chain of pointer diffs with ledger(out?)
 
   free(sums);
