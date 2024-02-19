@@ -59,11 +59,14 @@ int block(int *lowkey, int *keylow, int *change) {
   int djk = 0;
   for (int i = 0; i < 8; i++) {
     int* key = &lowkey + (i * sizeof(char)); // iterate char size var to get opcode key change
-    int* yek = &change + (djk * (sizeof(int*) + sizeof(char)));
+    char* yek = (char*)change + (djk * (sizeof(int*) + sizeof(char)));
+    char cc = *yek;
+    printf("cc after: %c", cc);
     if (*key == *yek) {
       int* wol = &keylow + (i * sizeof(int *)); // iterate int pointer size var to get value change of opcode result
-      int* low = &change + (djk * (sizeof(int*) + sizeof(char))) + sizeof(char); //*? 
+      int* low = (int**)((char*)change + (djk * (sizeof(int*) + sizeof(char))) + sizeof(char)); //*? 
       djk += 1;
+      printf("djk iterated i: %d", i);
       key = &wol;
     }
     // TODO - shift off of *change irregular shapped memory "array" 
@@ -78,30 +81,19 @@ int* ledger() {
   printf("Enter 8 character opcode for vm: "); 
   scanf("%8s", opt);
   printf("you entered: %s\n", opt); 
-  int *change = malloc(4 * sizeof(int *) + 4 * sizeof(char));  
+  void* change = malloc(4 * sizeof(int *) + 4 * sizeof(char));  
   for (int i = 0; i < 8; i++) {
     // feed in correctly - set by reference (memory location in struct (don't use struct so i can time travel)
-    printf("\n value at %d: %d", i, opt[i]);
-    printf("\n value at %d: %c", i, opt[i]);
     if (i % 2 == 0) {
-      char* c = &change + (i * sizeof(int *) + sizeof(char));
-      c = &opt[i];
-      char cc = *c;
-      printf("\n psst, char: %c", cc);
-      // TODO - move to  else to always collect int
+      // REVIEW - might need to just add to (char*)change directly
+      char* c = (char*)change + (i * (sizeof(int *) + sizeof(char)));
+      *c = opt[i];
+      printf("c before: %c", *c); 
     } else {
-      int* djk = &change + (i * sizeof(int *) + sizeof(char) * 2);
-      char s[] = {opt[i]};
-      //*djk = atoi(s);
-      *djk = opt[i] - '0';
-      printf("\n psst, int: %d", *djk);
-      // TODO - add char memory space at pointer memory allocation
-      // set int pointer (parse int?)
+      int** djk = (int**)((char*)change + (i * (sizeof(int *) + sizeof(char))) + sizeof(char));
+      *djk = malloc(sizeof(int));
+      **djk = opt[i] - '0';
     }
-    
-    //change = opt[i];
-    //printf("value at pointer: %d", change);
-    //change += sizeof(int *) + sizeof(char);
   }
   printf("\n changes: %d", change);
   return change;
@@ -113,7 +105,7 @@ int main() {
   int *sums = malloc(8 * sizeof(int *));
   int *chars = malloc(8 * sizeof(char)); // *?
   //int *change = malloc(4 * sizeof(int *) + 4 * sizeof(char));  
-  int *change = ledger();
+  int* change = ledger();
   //int *sums[8];
   memset(array, 'G', sizeof(array));
   for (int i = 0; i < 8; i++) {
