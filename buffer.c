@@ -28,34 +28,21 @@
 // pass the memory address in, copy, then change
 //block(chars, sums, change);
 int block(char* lowkey, int* keylow, void* change) {
+  // record block creation 
   int djk = 0;
   for (int i = 0; i < 8; i++) {
     // REVIEW
     char key = *((char*)lowkey + (i * sizeof(char))); // iterate char size var to get opcode key change
-    //char key = lowkey[i];
     char* yek = (void*)change + (djk * (sizeof(int*) + sizeof(char)));
-    //printf("*yek: %c", *yek);
     printf("\n key: %c", key);
     if (key == *yek) {
       printf("\n key: %d, *yek: %d: ", key, *yek);
-      //int wol = *((int*)keylow + (i * sizeof(int *))); // iterate int pointer size var to get value change of opcode result
       int wol = keylow[i];
       int* low = *(int**)((void*)change + ((djk + 1) * (sizeof(int*) + sizeof(char))) + sizeof(char)); //*? 
       printf("\n wol, *low: %d, %d", wol, *low);
       keylow[i] = *low;
       djk += 2;
     }
-    //printf("\nkey, *yek: %c, %c", key, *yek);
-    //if (key == *yek) {
-      // REVIEW
-      //int* wol = (int*)keylow + (i * sizeof(int *)); // iterate int pointer size var to get value change of opcode result
-      //int* low = (int**)((void*)change + (djk * (sizeof(int*) + sizeof(char))) + sizeof(char)); //*? 
-      //printf("\n *wol, *low: %d, %d", *wol, *low);
-      //djk += 1;
-      //printf("\ndjk iterated i: %d", i);
-      //key = &wol;
-    //}
-    // TODO - shift off of *change irregular shapped memory "array" 
   }
   // TODO - nothing, another function can check pointer location for correct opcode pairings.
   return 0;
@@ -86,40 +73,53 @@ char* cli() {
   printf("\nyou entered: %s\n", opt); 
   return opt;
 }
-int* ledger() {
+char** question(char** history, char* code) {
+  //dump?
+  char* words = malloc(8 * sizeof(char));
+  // TODO - pointer increase size of history** to include words
+  return history;
+}
+int** answer(int** results, int* variables) {
+  int* names = malloc(8 * sizeof(int));
+  // TODO - pointer increase size of results** to include names
+  return results;
+}
+int* ledger(char* code, int* variables) {
   // changes, solved blocks, input/output validators
+  // store in memory and dump to storage
+  // advertise segments on network to connect chains
+  char** history;
+  int** results;
+  question(history, code);  
+  answer(results, variables);
   void* change = input(cli());
   return change;
 }
 
 int main() {
-  //pointers();
   char array[8];
-  int* sums = malloc(8 * sizeof(int *));
-  char* chars = malloc(8 * sizeof(char)); // *?
-  //int *change = malloc(4 * sizeof(int *) + 4 * sizeof(char));  
-  int* change = ledger();
-  //int *sums[8];
+  char* code_seed = malloc(8 * sizeof(char)); // *?
+  int* variable_seed = malloc(8 * sizeof(int *));
+  int* change = ledger(code_seed, variable_seed);
   memset(array, 'G', sizeof(array));
   for (int i = 0; i < 8; i++) {
-    sums[i] = i;
+    variable_seed[i] = i;
   }
   for (int i = 0; i < 8; i++) {
-    printf("\n sums[%d]: %d ", i, sums[i]);
-    chars[i] = array[i];
-    printf("\n chars[%d]: %c", i, chars[i]);
+    printf("\n sums[%d]: %d ", i, variable_seed[i]);
+    code_seed[i] = array[i];
+    printf("\n chars[%d]: %c", i, code_seed[i]);
   }
   printf("\n before: \n");
   for (int i = 0; i < 8; i++) {
-    printf("%d, ", sums[i]);
+    printf("%d, ", variable_seed[i]);
   }
-  block(chars, sums, change);
+  block(code_seed, variable_seed, change);
   printf("changed: ?\n");
   for (int i = 0; i < 8; i++) {
-    printf("%d, ", sums[i]);
+    printf("%d, ", variable_seed[i]);
   }
   // TODO - validate - chain of pointer diffs with ledger(out?)
-
-  free(sums);
+  //free(sums);
   return 0;
 }
