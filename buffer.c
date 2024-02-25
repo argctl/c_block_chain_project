@@ -73,14 +73,18 @@ char* cli() {
   printf("\nyou entered: %s\n", opt); 
   return opt;
 }
-char** question(char** history, char* code) {
+char** question(char** history, char* code, int pc) {
   //dump?
+  history = realloc(history, sizeof(char*) * pc);
   char* words = malloc(8 * sizeof(char));
+  char** c = (char**)((char*)history + (sizeof(char*) * pc)); 
+  *c = words;
   // TODO - pointer increase size of history** to include words
-  return history;
+  return c;
 }
-int** answer(int** results, int* variables) {
+int** answer(int** results, int* variables, int pc) {
   int* names = malloc(8 * sizeof(int));
+  int** i = (int**)((int*)results + (sizeof(int*) * pc));
   // TODO - pointer increase size of results** to include names
   return results;
 }
@@ -88,10 +92,12 @@ int* ledger(char* code, int* variables) {
   // changes, solved blocks, input/output validators
   // store in memory and dump to storage
   // advertise segments on network to connect chains
-  char** history;
-  int** results;
-  question(history, code);  
-  answer(results, variables);
+  int pc = 1;
+  char** history = malloc(sizeof(char*));
+  int** results = malloc(sizeof(int*));
+  // TODO - look back one char pointer and int pointer, iterate pc;
+  question(history, code, pc);
+  answer(results, variables, pc);
   void* change = input(cli());
   return change;
 }
