@@ -93,16 +93,29 @@ int** answer(int** results, int* variables, int pc) {
   // TODO - pointer increase size of results** to include names
   return i;
 }
-int* ledger(char* code, int* variables) {
+int* ledger(char* code, int* variables, int pc) {
   // changes, solved blocks, input/output validators
   // store in memory and dump to storage
   // advertise segments on network to connect chains
-  int pc = 1;
   char** history = malloc(sizeof(char*));
   int** results = malloc(sizeof(int*));
   // TODO - look back one char pointer and int pointer, iterate pc;
-  history = question(history, code, pc);
-  results = answer(results, variables, pc);
+  question(history, code, pc);
+  answer(results, variables, pc);
+  // LOGGING
+  for (int i = 0; i < pc; i++) {
+    //char* cc = history[i];
+    char* cc = (char*)history + (sizeof(char*) * i);
+    //int* dd = results[i];     
+    printf("cc p: %p", cc);
+    /*
+    for (int j = 0; j < pc; j++) {
+      printf("c: %c", cc[j]); 
+      printf("d: %d", dd[j]);
+      printf("\n");
+    }
+    */
+  }
   void* change = input(cli());
   return change;
 }
@@ -111,8 +124,9 @@ int main() {
   char array[8];
   char* code_seed = malloc(8 * sizeof(char)); // *?
   int* variable_seed = malloc(8 * sizeof(int *));
+  int pc = 1;
   while (1) {
-    int* change = ledger(code_seed, variable_seed);
+    int* change = ledger(code_seed, variable_seed, pc++);
     memset(array, 'G', sizeof(array));
     for (int i = 0; i < 8; i++) {
       variable_seed[i] = i;
