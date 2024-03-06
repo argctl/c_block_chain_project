@@ -107,11 +107,18 @@ int* ledger(char** history, int** results, char* code, int* variables, int pc) {
   //history = question(history, code, pc);
   //char* cc = (char*)((char**)(history));
   history = realloc(history, sizeof(char*) * (pc + 1));
+  results = realloc(results, sizeof(int*) * (pc + 1));
   //char* c = (char*)((char**)history);
   history[pc] = code;
-  char* cc = history[pc];
-  for (int i = 0; i < 7; i++) {
-    printf("\n*cc[i]: %c \n", cc[i]);
+  results[pc] = variables;
+  for (int j = 0; j <= pc; j++) {
+    char* cc = history[j];
+    int* dk = results[j];
+    printf("\nresults[%d]: %d", j, *dk);
+    printf("\nhistory[%d]: ", j);
+    for (int i = 0; i < 7; i++) {
+      printf("%c", cc[i]);
+    }
   }
   printf("\n*code[0]: %c \n", code[0]);
   //printf("\n c: %c\n", *c);
