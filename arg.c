@@ -11,11 +11,14 @@
 // REVIEW - implicit but should bind both the socket and a buffer counter to socket if possible
 int tar () {
   // TODO - build cost for return validation
-  return 0;
+  // TODO - add semi-permenant or permenant ID to socket location to return chain or "lace" (trace) of encryption 
+  // seeded tar then gains value by network address length or accumulates tar value and the transfer of keys, changeable values in those keys are the "tokens"
+  return socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
+  // NOTE - the tar really is the data stored here if the integers match, so a check for matches at location with the 2d bilateral ids, makes the electronic cash
 }
 int main () {
   struct sockaddr_in i, o;
   int _socket_ = sizeof(i), recv_len;
-  char buffer[
+  char buffer[TARGIT];
   
 }
