@@ -27,24 +27,27 @@
 // creates variable length integer locking system with updates that chain
 // pass the memory address in, copy, then change
 //block(chars, sums, change);
+
 int block(char* lowkey, int* keylow, void* change) {
   int djk = 0;
+  int dk = 0;
   while (djk != 4) {
     char* c = (char*)(change + (djk * (sizeof(int*) + sizeof(char))));  
+    int* d = (int*)(change + (djk * (sizeof(int*) + sizeof(char))) + sizeof(char)); 
     printf("\n *c: %c, lowkey[djk]: %c", *c, lowkey[djk]);
     if (lowkey[djk] == *c) {
-      int* d = (int*)(change + (djk * (sizeof(int*) + sizeof(char))) + sizeof(char)); 
       printf("\n TODO - adjust number: %d", *d);
       keylow[djk] = *d;
+    } else {
+      dk += *d;
     }
     djk++;
   }
   
-  return 0;
+  return dk;
 }
 // input source
 // same pointers could allow for validation in this function
-
 void* input(char* opt) {
   void* change = malloc(4 * sizeof(int *) + 4 * sizeof(char));
   for (int i = 0; i < 8; i++) {
@@ -56,7 +59,6 @@ void* input(char* opt) {
       int* j = (int*)(change + (i/2 * (sizeof(int*) + sizeof(char))) + sizeof(char));
       int k = opt[i] - '0';
       *j = k;
-      //*j = opt[i] - '0';
     }
   } 
   for (int i = 0; i < 4; i++) {
@@ -65,130 +67,77 @@ void* input(char* opt) {
     printf("\n c: %c", *c);
     printf("\n d: %d", *d);
   }
-  //*change = &opt;
   return change;
 }
 
 char* cli() {
-  //char opt[9];
   char* opt = malloc(sizeof(char) * 9);
   printf("\nEnter 8 character opcode for vm: "); 
   scanf("%8s", opt);
   printf("\nyou entered: %s\n", opt); 
   return opt;
 }
-char** question(char** history, char* code, int pc) {
-  //dump?
-  //printf("\npc: %d\n", pc);
-  //history = realloc(history, sizeof(char*) * pc);
-  //char* words = malloc(8 * sizeof(char));
-  //char* c = (char*)((char**)(history + (sizeof(char*) * pc))); 
-  char* c = (char*)((char**)(history));
-  c = code;
-  //history[pc] = code;
-  // TODO - pointer increase size of history** to include words
-  return history;
-}
-int** answer(int** results, int* variables, int pc) {
-  //int* names = malloc(8 * sizeof(int));
-  results = realloc(results, sizeof(int*) * pc); 
-  int** i = (int**)((int*)(results + (sizeof(int*) * pc)));
-  *i = variables;
-  // TODO - pointer increase size of results** to include names
-  //return i;
-  return results;
-}
-int* ledger(char** history, int** results, char* code, int* variables, int pc) {
+
+void** ledger(char** history, int** results, char* code, int* variables, int pc) {
   // changes, solved blocks, input/output validators
   // store in memory and dump to storage
   // advertise segments on network to connect chains
   // TODO - look back one char pointer and int pointer, iterate pc;
-   
-  //history = question(history, code, pc);
-  //char* cc = (char*)((char**)(history));
   history = realloc(history, sizeof(char*) * (pc + 1));
   results = realloc(results, sizeof(int*) * (pc + 1));
-  //char* c = (char*)((char**)history);
+  
   history[pc] = code;
   results[pc] = variables;
-  for (int j = 0; j <= pc; j++) {
+  // I have char** history and int** result and want to return both from a function without using a struct but instead using a void pointer of pointers or void pointer
+  void** ledge = malloc(sizeof(char**) + sizeof(int**));
+  //if (pc > 0) printf("history[pc - 1]: pc: %d : %d <- [0]", pc, history[pc - 1][0]);
+  for (int j = 0; j < pc; j++) {
     char* cc = history[j];
+    printf("*cc: %c", *cc); 
     int* dk = results[j];
-    printf("\nresults[%d]: %d", j, *dk);
-    printf("\nhistory[%d]: ", j);
+    printf("dk: %p, *dk: %d", dk, *dk);
+    //printf("\nresults[%d]: %d", j, *dk);
+    //printf("\nhistory[%d]: %c", j, history[j][0]);
+  /*
     for (int i = 0; i < 7; i++) {
       printf("%c", cc[i]);
     }
+*/
   }
+  *((int***)ledge) = results;
+  *((char***)(ledge + 1)) = history;
   printf("\n*code[0]: %c \n", code[0]);
-  //printf("\n c: %c\n", *c);
-  //for (int i = 0; i < 7; i++) {
-  //char* cc = (char*)(history);
-    //cc = code;
-  //printf("\n *cc: %c\n", *cc);
-  //}
-  //cc = code;
-  //char** c = (char**)(history + (sizeof(char*) * pc));
-  //char *cc = (char*)(c);
-  //answer(results, variables, pc);
-  // LOGGING
-  /*
-  for (int i = 0; i < pc; i++) {
-    //char* cc = history[i];
-    char** c = (char**)(history + (sizeof(char*) * i)); 
-    for (int j = 0; j < 8; j++) {
-      char *cc = (char*)(c + (j * sizeof(char*)));
-      //char *cc = (char*)(cc + (j * sizeof(char)));
-      printf("\n *c: %c \n", *cc);
-    }
-    //printf("\ncc: %c\n", *cc);
-    //int* dd = results[i];     
-    //printf("\ncc p: %p", cc);
-    //printf("\ncc c: %c", cc[0]);
-    //for (int j = 0; j < pc; j++) {
-      //char c = (char)cc + (sizeof(char*) * j);
-      //printf("c: %c", c); 
-      //printf("d: %d", dd[j]);
-      //printf("\n");
-  }
-  */
-  //}
-  void* change = input(cli());
-  return change;
+  //void* change = input(cli());
+  return ledge;
 }
 
 int main() {
   char array[8];
-  int* variable_seed = malloc(8 * sizeof(int*));
   int pc = 0;
   char** history = malloc(sizeof(char*));
+  int** results = malloc(sizeof(int*));
   while (1) {
     char* code_seed = malloc(8 * sizeof(char)); // *?
-    int** results = malloc(sizeof(int*));
+  int* variable_seed = malloc(8 * sizeof(int*));
     printf("pc: %d", pc);
     memset(array, 'G', sizeof(array));
     for (int i = 0; i < 8; i++) {
       variable_seed[i] = i;
     }
     for (int i = 0; i < 8; i++) {
-    //printf("\n sums[%d]: %d ", i, variable_seed[i]);
       if (i == 7) code_seed[i] = 'H';
       code_seed[i] = array[i];
-    //printf("\n chars[%d]: %c", i, code_seed[i]);
     }
-    int* change = ledger(history, results, code_seed, variable_seed, pc);
+    void** ledge = ledger(history, results, code_seed, variable_seed, pc);
+    results = *((int***)ledge);
+    history = *((char***)(ledge + 1));
     pc++;
-  //printf("\n before: \n");
-  //for (int i = 0; i < 8; i++) {
-    //printf("%d, ", variable_seed[i]);
-  //}
-    block(code_seed, variable_seed, change);
-  //printf("changed: ?\n");
-    for (int i = 0; i < 8; i++) {
-      printf("%d, ", variable_seed[i]);
+    int* change = (int*)input(cli());
+    int dk = block(code_seed, variable_seed, change);
+    if (dk > 0) {
+      // TODO - send/create/add virtual register with change op codes and values from variable_seed in ledger
     }
+    printf("'merkle' decay to assign char positional code: %d \n", dk);
   }
-  // TODO - validate - chain of pointer diffs with ledger(out?)
-  //free(sums);
   return 0;
 }
