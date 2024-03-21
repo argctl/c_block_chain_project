@@ -93,16 +93,18 @@ void** ledger(char** history, int** results, char* code, int* variables, int pc)
   //if (pc > 0) printf("history[pc - 1]: pc: %d : %d <- [0]", pc, history[pc - 1][0]);
   for (int j = 0; j < pc; j++) {
     char* cc = history[j];
-    printf("*cc: %c", *cc); 
+    //printf("*cc: %c", *cc); 
     int* dk = results[j];
-    printf("dk: %p, *dk: %d", dk, *dk);
+    //printf("dk: %p, *dk: %d", dk, *dk);
     //printf("\nresults[%d]: %d", j, *dk);
     //printf("\nhistory[%d]: %c", j, history[j][0]);
-  /*
-    for (int i = 0; i < 7; i++) {
+    printf("CH(I)[pc]: \n");
+    for (int i = 0; i < 8; i++) {
+      printf("CH(I)[%d]: ", pc);
       printf("%c", cc[i]);
+      printf("%d", dk[i]);
+      printf("\n");
     }
-*/
   }
   *((int***)ledge) = results;
   *((char***)(ledge + 1)) = history;
@@ -116,27 +118,45 @@ int main() {
   int pc = 0;
   char** history = malloc(sizeof(char*));
   int** results = malloc(sizeof(int*));
+  int* change;
+  int dk = 0; 
   while (1) {
+    // if djk > 0, random split on next variable_seed, magic numbers on back half append loop
     char* code_seed = malloc(8 * sizeof(char)); // *?
-  int* variable_seed = malloc(8 * sizeof(int*));
+    int* variable_seed = malloc(8 * sizeof(int*));
+    
     printf("pc: %d", pc);
     memset(array, 'G', sizeof(array));
     for (int i = 0; i < 8; i++) {
       variable_seed[i] = i;
     }
     for (int i = 0; i < 8; i++) {
-      if (i == 7) code_seed[i] = 'H';
       code_seed[i] = array[i];
+      if (i == 7) code_seed[i] = 'H';
+    }
+    if (dk > 0) {
+      //printf("history[pc][0] pc=%d: %c \n", pc, *history[pc]);
+      for (int i = 4; i < 8; i++) {
+        //codehistory[pc][i]; //= dk; 
+        //char* c = (char*)(change + (i * (sizeof(int*) + sizeof(char)))); 
+        char* l = (char*)(change +(i * sizeof(int*) + sizeof(char)));
+        printf("l: %p, lc: %c", l, *l); 
+        code_seed[i] = (char*)(change + (i * (sizeof(char) + sizeof(int*)))); 
+        // set results // Can have a random value or split value, but this will help create consensus
+        //results
+        //variable_seed[i] = dk; //(int*)(change + (i * sizeof(char) + sizeof(int*)) + sizeof(char));
+      }
+      // REVIEW - setting to 0 might be redundant.
+      //dk = 0;
     }
     void** ledge = ledger(history, results, code_seed, variable_seed, pc);
     results = *((int***)ledge);
     history = *((char***)(ledge + 1));
     pc++;
-    int* change = (int*)input(cli());
-    int dk = block(code_seed, variable_seed, change);
-    if (dk > 0) {
-      // TODO - send/create/add virtual register with change op codes and values from variable_seed in ledger
-    }
+    change = (int*)input(cli());
+    dk = block(code_seed, variable_seed, change);
+    // TODO - send/create/add virtual register with change op codes and values from variable_seed in ledger
+    
     printf("'merkle' decay to assign char positional code: %d \n", dk);
   }
   return 0;
