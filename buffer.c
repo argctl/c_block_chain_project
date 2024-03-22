@@ -183,7 +183,7 @@ int main() {
       printf("\nmain c: %c", *c);
       if (dk > 0) {
        // cp = 0;
-        cp = pc;  
+        //cp = pc;  
         int* d = (int*)(change + ((i - 4) * (sizeof(int*) + sizeof(char))) + sizeof(char));
         variable_seed[i] = dk;
         printf("\nmain d: %d", *d);
@@ -191,10 +191,12 @@ int main() {
     }
     dk = block(code_seed, variable_seed, change);
     cp++;
-    cp = cp == 0 ? pc : cp - 1;
+    cp = cp <= 0 ? pc : cp - dk;
+    // negative value iterate by counting to 0, take absolute value, not as predictable. 
+    printf("\npc: %d, cp: %d\n", pc, cp);
     // TODO - send/create/add virtual register with change op codes and values from variable_seed in ledger
     
-    printf("'merkle' decay to assign char positional code: %d \n", dk);
+    printf("\n'merkle' decay to assign char positional code: %d \n", dk);
   }
   return 0;
 }
