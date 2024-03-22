@@ -110,6 +110,7 @@ void** ledger(char** history, int** results, char* code, int* variables, int pc,
     //code[i] = history[cp][i]; 
     char g;
     // The current position is adjusted to the match the history on the front half of our "word" if we have merkle decay that isn't new virtual space
+    // one more check for the code change or do we assume top layer check and this is volatile until dk set?
     if (cp < pc && cp > 0 && i < 4) {
       g = history[cp][i];
       code[i] = g;
@@ -117,7 +118,9 @@ void** ledger(char** history, int** results, char* code, int* variables, int pc,
       
     } 
     // The result related to history on the back half of a "word" is changeable by the DK iterator to copy the value across the ledger if the code matches
-    if (i > 4 && g == code[i]) {
+    if (pc > 0)
+    if (i > 4 && g == history[pc - 1][i]) { 
+    //if (i > 4 && g == code[i]) {
       results[cp][i] = variables[i];
     }
   }
