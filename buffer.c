@@ -96,16 +96,35 @@ char* cli() {
   return opt;
 }
 
-void** ledger(char** history, int** results, char* code, int* variables, int pc) {
+void** ledger(char** history, int** results, char* code, int* variables, int pc, int cp) {
   // changes, solved blocks, input/output validators
   // store in memory and dump to storage
   // advertise segments on network to connect chains
   // TODO - look back one char pointer and int pointer, iterate pc;
   history = realloc(history, sizeof(char*) * (pc + 1));
   results = realloc(results, sizeof(int*) * (pc + 1));
-  
+
+  printf("\ncp before g count: %d\n ", cp);
+  for (int i = 0; i < 8; i++) {
+    //safety - negative and outofbounds
+    //code[i] = history[cp][i]; 
+    char g;
+    // The current position is adjusted to the match the history on the front half of our "word" if we have merkle decay that isn't new virtual space
+    if (cp < pc && cp > 0 && i < 4) {
+      g = history[cp][i];
+      code[i] = g;
+      printf("\ng: %c\n", g); 
+      
+    } 
+    // The result related to history on the back half of a "word" is changeable by the DK iterator to copy the value across the ledger if the code matches
+    if (i > 4 && g == code[i]) {
+      results[cp][i] = variables[i];
+    }
+  }
   history[pc] = code;
   results[pc] = variables;
+  
+  
   // I have char** history and int** result and want to return both from a function without using a struct but instead using a void pointer of pointers or void pointer
   void** ledge = malloc(sizeof(char**) + sizeof(int**));
   //if (pc > 0) printf("history[pc - 1]: pc: %d : %d <- [0]", pc, history[pc - 1][0]);
@@ -172,7 +191,7 @@ int main() {
       //dk = 0;
     }
     */
-    void** ledge = ledger(history, results, code_seed, variable_seed, pc);
+    void** ledge = ledger(history, results, code_seed, variable_seed, pc, cp);
     results = *((int***)ledge);
     history = *((char***)(ledge + 1));
     pc++;
