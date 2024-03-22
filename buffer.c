@@ -121,6 +121,7 @@ void** ledger(char** history, int** results, char* code, int* variables, int pc,
     if (pc > 0)
     if (i > 4 && g == history[pc - 1][i]) { 
     //if (i > 4 && g == code[i]) {
+      printf("setting results[%d][%i] - %d = variables[%d] - %d", cp, i, results[cp][i], i, variables[i]);
       results[cp][i] = variables[i];
     }
   }
