@@ -31,6 +31,7 @@
 int block(char* lowkey, int* keylow, void* change) {
   int djk = 0;
   int dk = 0;
+
   while (djk != 4) {
     char* c = (char*)(change + (djk * (sizeof(int*) + sizeof(char))));  
     int* d = (int*)(change + (djk * (sizeof(int*) + sizeof(char))) + sizeof(char)); 
@@ -43,7 +44,24 @@ int block(char* lowkey, int* keylow, void* change) {
     }
     djk++;
   }
-  
+/*
+  if (dk > 0) {
+    for (int i = 4; i < 8; i++) {
+      char* c = (char*)(change + ((i - 4) * (sizeof(int*) + sizeof(char)))); 
+      printf("block dk *c: %c", *c);
+      lowkey[i] = *c;
+      //int* d = (int*)(change + ((i - 4) * (sizeof(int*) + sizeof(char))) + sizeof(char));
+      //printf("\nblock c: %c", *c);
+      //printf("\nblock d: %d", *d);
+    } 
+  }
+*/
+ for (int i = 4; i < 8; i++) {
+   char* c = (char*)(change + ((i - 4) * (sizeof(int*) + sizeof(char)))); 
+   int* d = (int*)(change + ((i - 4) * (sizeof(int*) + sizeof(char))) + sizeof(char));
+   printf("\nblock c: %c", *c);
+   printf("\nblock d: %d", *d);
+  }
   return dk;
 }
 // input source
@@ -118,7 +136,7 @@ int main() {
   int pc = 0;
   char** history = malloc(sizeof(char*));
   int** results = malloc(sizeof(int*));
-  int* change;
+  void* change;
   int dk = 0; 
   while (1) {
     // if djk > 0, random split on next variable_seed, magic numbers on back half append loop
@@ -134,26 +152,41 @@ int main() {
       code_seed[i] = array[i];
       if (i == 7) code_seed[i] = 'H';
     }
+    /*
     if (dk > 0) {
+    
       //printf("history[pc][0] pc=%d: %c \n", pc, *history[pc]);
       for (int i = 4; i < 8; i++) {
         //codehistory[pc][i]; //= dk; 
         //char* c = (char*)(change + (i * (sizeof(int*) + sizeof(char)))); 
-        char* l = (char*)(change +(i * sizeof(int*) + sizeof(char)));
-        printf("l: %p, lc: %c", l, *l); 
-        code_seed[i] = (char*)(change + (i * (sizeof(char) + sizeof(int*)))); 
+        char l = *(char*)(change + ((i - 4) * (sizeof(char) + sizeof(int*)))); 
+        printf("\nl: %c", l);
+        code_seed[i] = *(char*)(change + ((i - 4) * (sizeof(char) + sizeof(int*)))); 
+        
         // set results // Can have a random value or split value, but this will help create consensus
         //results
         //variable_seed[i] = dk; //(int*)(change + (i * sizeof(char) + sizeof(int*)) + sizeof(char));
       }
+       
       // REVIEW - setting to 0 might be redundant.
       //dk = 0;
     }
+    */
     void** ledge = ledger(history, results, code_seed, variable_seed, pc);
     results = *((int***)ledge);
     history = *((char***)(ledge + 1));
     pc++;
     change = (int*)input(cli());
+    for (int i = 4; i < 8; i++) {
+      char* c = (char*)(change + ((i - 4) * (sizeof(int*) + sizeof(char)))); 
+      code_seed[i] = *c; 
+      printf("\nmain c: %c", *c);
+      if (dk > 0) {
+        int* d = (int*)(change + ((i - 4) * (sizeof(int*) + sizeof(char))) + sizeof(char));
+        variable_seed[i] = dk;
+        printf("\nmain d: %d", *d);
+      }
+    }
     dk = block(code_seed, variable_seed, change);
     // TODO - send/create/add virtual register with change op codes and values from variable_seed in ledger
     
