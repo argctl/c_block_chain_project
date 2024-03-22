@@ -112,7 +112,7 @@ void** ledger(char** history, int** results, char* code, int* variables, int pc,
     // The current position is adjusted to the match the history on the front half of our "word" if we have merkle decay that isn't new virtual space
     // one more check for the code change or do we assume top layer check and this is volatile until dk set?
     if (cp < pc && cp > 0 && i < 4) {
-      g = history[cp][i];
+      g = history[cp][i + 4];
       code[i] = g;
       printf("\ng: %c\n", g); 
       
@@ -138,7 +138,7 @@ void** ledger(char** history, int** results, char* code, int* variables, int pc,
     //printf("dk: %p, *dk: %d", dk, *dk);
     //printf("\nresults[%d]: %d", j, *dk);
     //printf("\nhistory[%d]: %c", j, history[j][0]);
-    printf("CH(I)[pc]: \n");
+    printf("CH(I)[pc:%d]: \n", j);
     for (int i = 0; i < 8; i++) {
       printf("CH(I)[%d]: ", pc);
       printf("%c", cc[i]);
