@@ -190,8 +190,8 @@ int main() {
       }
     }
     dk = block(code_seed, variable_seed, change);
-    cp++;
-    cp = cp <= 0 ? pc : cp - dk;
+    //cp++;
+    cp = cp <= 0 ? pc : cp - dk - 1;
     // negative value iterate by counting to 0, take absolute value, not as predictable. 
     printf("\npc: %d, cp: %d\n", pc, cp);
     // TODO - send/create/add virtual register with change op codes and values from variable_seed in ledger
