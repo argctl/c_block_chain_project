@@ -134,6 +134,7 @@ void** ledger(char** history, int** results, char* code, int* variables, int pc)
 int main() {
   char array[8];
   int pc = 0;
+  int cp = 0; // Can we set this to the size of history, and then count backwards until a change?
   char** history = malloc(sizeof(char*));
   int** results = malloc(sizeof(int*));
   void* change;
@@ -142,7 +143,6 @@ int main() {
     // if djk > 0, random split on next variable_seed, magic numbers on back half append loop
     char* code_seed = malloc(8 * sizeof(char)); // *?
     int* variable_seed = malloc(8 * sizeof(int*));
-    
     printf("pc: %d", pc);
     memset(array, 'G', sizeof(array));
     for (int i = 0; i < 8; i++) {
@@ -182,12 +182,16 @@ int main() {
       code_seed[i] = *c; 
       printf("\nmain c: %c", *c);
       if (dk > 0) {
+       // cp = 0;
+        cp = pc;  
         int* d = (int*)(change + ((i - 4) * (sizeof(int*) + sizeof(char))) + sizeof(char));
         variable_seed[i] = dk;
         printf("\nmain d: %d", *d);
       }
     }
     dk = block(code_seed, variable_seed, change);
+    cp++;
+    cp = cp == 0 ? pc : cp - 1;
     // TODO - send/create/add virtual register with change op codes and values from variable_seed in ledger
     
     printf("'merkle' decay to assign char positional code: %d \n", dk);
