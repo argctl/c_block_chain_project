@@ -109,7 +109,7 @@ void** ledger(char** history, int** results, char* code, int* variables, int pc,
     // The result related to history on the back half of a "word" is changeable by the DK iterator to copy the value across the ledger if the code matches
     if (pc > 0)
     if (i > 4 && g == history[pc - 1][i]) { 
-      printf("setting results[%d][%i] - %d = variables[%d] - %d", cp, i, results[cp][i], i, variables[i]);
+      printf("setting results[%d][%i] - %d = variables[%d] - %d ", cp, i, results[cp][i], i, variables[i]);
       results[cp][i] = variables[i];
     }
   }
