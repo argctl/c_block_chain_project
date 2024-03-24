@@ -59,7 +59,7 @@ int block(char* lowkey, int* keylow, void* change) {
 void* input(char* opt) {
   void* change = malloc(4 * sizeof(int *) + 4 * sizeof(char));
   for (int i = 0; i < 8; i++) {
-    printf("\n opt[%d]: %c", i, opt[i]);
+    //printf("\n opt[%d]: %c", i, opt[i]);
     if (i % 2 == 0) {
       char* c = (char*)(change + (i/2 * (sizeof(int*) + sizeof(char))));
       *c = opt[i];
@@ -69,12 +69,14 @@ void* input(char* opt) {
       *j = k;
     }
   } 
+  /*
   for (int i = 0; i < 4; i++) {
     char* c = (char*)(change + (i * (sizeof(int*) + sizeof(char)))); 
     int* d = (int*)(change + (i * (sizeof(int*) + sizeof(char))) + sizeof(char));
     printf("\n c: %c", *c);
     printf("\n d: %d", *d);
   }
+  */
   return change;
 }
 
