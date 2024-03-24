@@ -44,24 +44,14 @@ int block(char* lowkey, int* keylow, void* change) {
     }
     djk++;
   }
-/*
-  if (dk > 0) {
-    for (int i = 4; i < 8; i++) {
-      char* c = (char*)(change + ((i - 4) * (sizeof(int*) + sizeof(char)))); 
-      printf("block dk *c: %c", *c);
-      lowkey[i] = *c;
-      //int* d = (int*)(change + ((i - 4) * (sizeof(int*) + sizeof(char))) + sizeof(char));
-      //printf("\nblock c: %c", *c);
-      //printf("\nblock d: %d", *d);
-    } 
-  }
-*/
+ /*
  for (int i = 4; i < 8; i++) {
    char* c = (char*)(change + ((i - 4) * (sizeof(int*) + sizeof(char)))); 
    int* d = (int*)(change + ((i - 4) * (sizeof(int*) + sizeof(char))) + sizeof(char));
    printf("\nblock c: %c", *c);
    printf("\nblock d: %d", *d);
   }
+ */
   return dk;
 }
 // input source
