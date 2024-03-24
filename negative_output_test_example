@@ -1,0 +1,856 @@
+pc: 0
+cp before g count: 0
+
+*code[0]: G
+
+Enter 8 character opcode for vm: G1G1G1G1
+
+you entered: G1G1G1G1
+
+ opt[0]: G
+ opt[1]: 1
+ opt[2]: G
+ opt[3]: 1
+ opt[4]: G
+ opt[5]: 1
+ opt[6]: G
+ opt[7]: 1
+ c: G
+ d: 1
+ c: G
+ d: 1
+ c: G
+ d: 1
+ c: G
+ d: 1
+main c: G
+main c: G
+main c: G
+main c: G
+ *c: G, lowkey[djk]: G
+ TODO - adjust number: 1
+ *c: G, lowkey[djk]: G
+ TODO - adjust number: 1
+ *c: G, lowkey[djk]: G
+ TODO - adjust number: 1
+ *c: G, lowkey[djk]: G
+ TODO - adjust number: 1
+block c: G
+block d: 1
+block c: G
+block d: 1
+block c: G
+block d: 1
+block c: G
+block d: 1
+pc: 1, cp: 1
+
+'merkle' decay to assign char positional code: 0
+pc: 1
+cp before g count: 1
+ CH(I)[pc:0]:
+CH(I)[1]: G1
+CH(I)[1]: G1
+CH(I)[1]: G1
+CH(I)[1]: G1
+CH(I)[1]: G4
+CH(I)[1]: G5
+CH(I)[1]: G6
+CH(I)[1]: G7
+
+*code[0]: G
+
+Enter 8 character opcode for vm: DJKDJKDK
+
+you entered: DJKDJKDK
+
+ opt[0]: D
+ opt[1]: J
+ opt[2]: K
+ opt[3]: D
+ opt[4]: J
+ opt[5]: K
+ opt[6]: D
+ opt[7]: K
+ c: D
+ d: 26
+ c: K
+ d: 20
+ c: J
+ d: 27
+ c: D
+ d: 27
+main c: D
+main c: K
+main c: J
+main c: D
+ *c: D, lowkey[djk]: G
+ *c: K, lowkey[djk]: G
+ *c: J, lowkey[djk]: G
+ *c: D, lowkey[djk]: G
+block c: D
+block d: 26
+block c: K
+block d: 20
+block c: J
+block d: 27
+block c: D
+block d: 27
+pc: 2, cp: -100
+
+'merkle' decay to assign char positional code: 100
+pc: 2
+cp before g count: -100
+ CH(I)[pc:0]:
+CH(I)[2]: G1
+CH(I)[2]: G1
+CH(I)[2]: G1
+CH(I)[2]: G1
+CH(I)[2]: G4
+CH(I)[2]: G5
+CH(I)[2]: G6
+CH(I)[2]: G7
+CH(I)[pc:1]:
+CH(I)[2]: G0
+CH(I)[2]: G1
+CH(I)[2]: G2
+CH(I)[2]: G3
+CH(I)[2]: D4
+CH(I)[2]: K5
+CH(I)[2]: J6
+CH(I)[2]: D7
+
+*code[0]: G
+
+Enter 8 character opcode for vm: DJKDJKDK
+
+you entered: DJKDJKDK
+
+ opt[0]: D
+ opt[1]: J
+ opt[2]: K
+ opt[3]: D
+ opt[4]: J
+ opt[5]: K
+ opt[6]: D
+ opt[7]: K
+ c: D
+ d: 26
+ c: K
+ d: 20
+ c: J
+ d: 27
+ c: D
+ d: 27
+main c: D
+main d: 26
+main c: K
+main d: 20
+main c: J
+main d: 27
+main c: D
+main d: 27
+ *c: D, lowkey[djk]: G
+ *c: K, lowkey[djk]: G
+ *c: J, lowkey[djk]: G
+ *c: D, lowkey[djk]: G
+block c: D
+block d: 26
+block c: K
+block d: 20
+block c: J
+block d: 27
+block c: D
+block d: 27
+pc: 3, cp: 3
+
+'merkle' decay to assign char positional code: 100
+pc: 3
+cp before g count: 3
+ CH(I)[pc:0]:
+CH(I)[3]: G1
+CH(I)[3]: G1
+CH(I)[3]: G1
+CH(I)[3]: G1
+CH(I)[3]: G4
+CH(I)[3]: G5
+CH(I)[3]: G6
+CH(I)[3]: G7
+CH(I)[pc:1]:
+CH(I)[3]: G0
+CH(I)[3]: G1
+CH(I)[3]: G2
+CH(I)[3]: G3
+CH(I)[3]: D4
+CH(I)[3]: K5
+CH(I)[3]: J6
+CH(I)[3]: D7
+CH(I)[pc:2]:
+CH(I)[3]: G0
+CH(I)[3]: G1
+CH(I)[3]: G2
+CH(I)[3]: G3
+CH(I)[3]: D100
+CH(I)[3]: K100
+CH(I)[3]: J100
+CH(I)[3]: D100
+
+*code[0]: G
+
+Enter 8 character opcode for vm: DJKDJKDK
+
+you entered: DJKDJKDK
+
+ opt[0]: D
+ opt[1]: J
+ opt[2]: K
+ opt[3]: D
+ opt[4]: J
+ opt[5]: K
+ opt[6]: D
+ opt[7]: K
+ c: D
+ d: 26
+ c: K
+ d: 20
+ c: J
+ d: 27
+ c: D
+ d: 27
+main c: D
+main d: 26
+main c: K
+main d: 20
+main c: J
+main d: 27
+main c: D
+main d: 27
+ *c: D, lowkey[djk]: G
+ *c: K, lowkey[djk]: G
+ *c: J, lowkey[djk]: G
+ *c: D, lowkey[djk]: G
+block c: D
+block d: 26
+block c: K
+block d: 20
+block c: J
+block d: 27
+block c: D
+block d: 27
+pc: 4, cp: -98
+
+'merkle' decay to assign char positional code: 100
+pc: 4
+cp before g count: -98
+ CH(I)[pc:0]:
+CH(I)[4]: G1
+CH(I)[4]: G1
+CH(I)[4]: G1
+CH(I)[4]: G1
+CH(I)[4]: G4
+CH(I)[4]: G5
+CH(I)[4]: G6
+CH(I)[4]: G7
+CH(I)[pc:1]:
+CH(I)[4]: G0
+CH(I)[4]: G1
+CH(I)[4]: G2
+CH(I)[4]: G3
+CH(I)[4]: D4
+CH(I)[4]: K5
+CH(I)[4]: J6
+CH(I)[4]: D7
+CH(I)[pc:2]:
+CH(I)[4]: G0
+CH(I)[4]: G1
+CH(I)[4]: G2
+CH(I)[4]: G3
+CH(I)[4]: D100
+CH(I)[4]: K100
+CH(I)[4]: J100
+CH(I)[4]: D100
+CH(I)[pc:3]:
+CH(I)[4]: G0
+CH(I)[4]: G1
+CH(I)[4]: G2
+CH(I)[4]: G3
+CH(I)[4]: D100
+CH(I)[4]: K100
+CH(I)[4]: J100
+CH(I)[4]: D100
+
+*code[0]: G
+
+Enter 8 character opcode for vm: DJKDJKDK
+
+you entered: DJKDJKDK
+
+ opt[0]: D
+ opt[1]: J
+ opt[2]: K
+ opt[3]: D
+ opt[4]: J
+ opt[5]: K
+ opt[6]: D
+ opt[7]: K
+ c: D
+ d: 26
+ c: K
+ d: 20
+ c: J
+ d: 27
+ c: D
+ d: 27
+main c: D
+main d: 26
+main c: K
+main d: 20
+main c: J
+main d: 27
+main c: D
+main d: 27
+ *c: D, lowkey[djk]: G
+ *c: K, lowkey[djk]: G
+ *c: J, lowkey[djk]: G
+ *c: D, lowkey[djk]: G
+block c: D
+block d: 26
+block c: K
+block d: 20
+block c: J
+block d: 27
+block c: D
+block d: 27
+pc: 5, cp: 5
+
+'merkle' decay to assign char positional code: 100
+pc: 5
+cp before g count: 5
+ CH(I)[pc:0]:
+CH(I)[5]: G1
+CH(I)[5]: G1
+CH(I)[5]: G1
+CH(I)[5]: G1
+CH(I)[5]: G4
+CH(I)[5]: G5
+CH(I)[5]: G6
+CH(I)[5]: G7
+CH(I)[pc:1]:
+CH(I)[5]: G0
+CH(I)[5]: G1
+CH(I)[5]: G2
+CH(I)[5]: G3
+CH(I)[5]: D4
+CH(I)[5]: K5
+CH(I)[5]: J6
+CH(I)[5]: D7
+CH(I)[pc:2]:
+CH(I)[5]: G0
+CH(I)[5]: G1
+CH(I)[5]: G2
+CH(I)[5]: G3
+CH(I)[5]: D100
+CH(I)[5]: K100
+CH(I)[5]: J100
+CH(I)[5]: D100
+CH(I)[pc:3]:
+CH(I)[5]: G0
+CH(I)[5]: G1
+CH(I)[5]: G2
+CH(I)[5]: G3
+CH(I)[5]: D100
+CH(I)[5]: K100
+CH(I)[5]: J100
+CH(I)[5]: D100
+CH(I)[pc:4]:
+CH(I)[5]: G0
+CH(I)[5]: G1
+CH(I)[5]: G2
+CH(I)[5]: G3
+CH(I)[5]: D100
+CH(I)[5]: K100
+CH(I)[5]: J100
+CH(I)[5]: D100
+
+*code[0]: G
+
+Enter 8 character opcode for vm: DKDKDKDK
+
+you entered: DKDKDKDK
+
+ opt[0]: D
+ opt[1]: K
+ opt[2]: D
+ opt[3]: K
+ opt[4]: D
+ opt[5]: K
+ opt[6]: D
+ opt[7]: K
+ c: D
+ d: 27
+ c: D
+ d: 27
+ c: D
+ d: 27
+ c: D
+ d: 27
+main c: D
+main d: 27
+main c: D
+main d: 27
+main c: D
+main d: 27
+main c: D
+main d: 27
+ *c: D, lowkey[djk]: G
+ *c: D, lowkey[djk]: G
+ *c: D, lowkey[djk]: G
+ *c: D, lowkey[djk]: G
+block c: D
+block d: 27
+block c: D
+block d: 27
+block c: D
+block d: 27
+block c: D
+block d: 27
+pc: 6, cp: -104
+
+'merkle' decay to assign char positional code: 108
+pc: 6
+cp before g count: -104
+ CH(I)[pc:0]:
+CH(I)[6]: G1
+CH(I)[6]: G1
+CH(I)[6]: G1
+CH(I)[6]: G1
+CH(I)[6]: G4
+CH(I)[6]: G5
+CH(I)[6]: G6
+CH(I)[6]: G7
+CH(I)[pc:1]:
+CH(I)[6]: G0
+CH(I)[6]: G1
+CH(I)[6]: G2
+CH(I)[6]: G3
+CH(I)[6]: D4
+CH(I)[6]: K5
+CH(I)[6]: J6
+CH(I)[6]: D7
+CH(I)[pc:2]:
+CH(I)[6]: G0
+CH(I)[6]: G1
+CH(I)[6]: G2
+CH(I)[6]: G3
+CH(I)[6]: D100
+CH(I)[6]: K100
+CH(I)[6]: J100
+CH(I)[6]: D100
+CH(I)[pc:3]:
+CH(I)[6]: G0
+CH(I)[6]: G1
+CH(I)[6]: G2
+CH(I)[6]: G3
+CH(I)[6]: D100
+CH(I)[6]: K100
+CH(I)[6]: J100
+CH(I)[6]: D100
+CH(I)[pc:4]:
+CH(I)[6]: G0
+CH(I)[6]: G1
+CH(I)[6]: G2
+CH(I)[6]: G3
+CH(I)[6]: D100
+CH(I)[6]: K100
+CH(I)[6]: J100
+CH(I)[6]: D100
+CH(I)[pc:5]:
+CH(I)[6]: G0
+CH(I)[6]: G1
+CH(I)[6]: G2
+CH(I)[6]: G3
+CH(I)[6]: D100
+CH(I)[6]: D100
+CH(I)[6]: D100
+CH(I)[6]: D100
+
+*code[0]: G
+
+Enter 8 character opcode for vm: DKDKDK
+
+you entered: DKDKDK
+
+ opt[0]: D
+ opt[1]: K
+ opt[2]: D
+ opt[3]: K
+ opt[4]: D
+ opt[5]: K
+ opt[6]:
+ opt[7]:
+ c: D
+ d: 27
+ c: D
+ d: 27
+ c: D
+ d: 27
+ c:
+ d: -48
+main c: D
+main d: 27
+main c: D
+main d: 27
+main c: D
+main d: 27
+main c:
+main d: -48
+ *c: D, lowkey[djk]: G
+ *c: D, lowkey[djk]: G
+ *c: D, lowkey[djk]: G
+ *c: , lowkey[djk]: G
+block c: D
+block d: 27
+block c: D
+block d: 27
+block c: D
+block d: 27
+block c:
+block d: -48
+pc: 7, cp: 7
+
+'merkle' decay to assign char positional code: 33
+pc: 7
+cp before g count: 7
+ CH(I)[pc:0]:
+CH(I)[7]: G1
+CH(I)[7]: G1
+CH(I)[7]: G1
+CH(I)[7]: G1
+CH(I)[7]: G4
+CH(I)[7]: G5
+CH(I)[7]: G6
+CH(I)[7]: G7
+CH(I)[pc:1]:
+CH(I)[7]: G0
+CH(I)[7]: G1
+CH(I)[7]: G2
+CH(I)[7]: G3
+CH(I)[7]: D4
+CH(I)[7]: K5
+CH(I)[7]: J6
+CH(I)[7]: D7
+CH(I)[pc:2]:
+CH(I)[7]: G0
+CH(I)[7]: G1
+CH(I)[7]: G2
+CH(I)[7]: G3
+CH(I)[7]: D100
+CH(I)[7]: K100
+CH(I)[7]: J100
+CH(I)[7]: D100
+CH(I)[pc:3]:
+CH(I)[7]: G0
+CH(I)[7]: G1
+CH(I)[7]: G2
+CH(I)[7]: G3
+CH(I)[7]: D100
+CH(I)[7]: K100
+CH(I)[7]: J100
+CH(I)[7]: D100
+CH(I)[pc:4]:
+CH(I)[7]: G0
+CH(I)[7]: G1
+CH(I)[7]: G2
+CH(I)[7]: G3
+CH(I)[7]: D100
+CH(I)[7]: K100
+CH(I)[7]: J100
+CH(I)[7]: D100
+CH(I)[pc:5]:
+CH(I)[7]: G0
+CH(I)[7]: G1
+CH(I)[7]: G2
+CH(I)[7]: G3
+CH(I)[7]: D100
+CH(I)[7]: D100
+CH(I)[7]: D100
+CH(I)[7]: D100
+CH(I)[pc:6]:
+CH(I)[7]: G0
+CH(I)[7]: G1
+CH(I)[7]: G2
+CH(I)[7]: G3
+CH(I)[7]: D108
+CH(I)[7]: D108
+CH(I)[7]: D108
+CH(I)[7]: 108
+
+*code[0]: G
+
+Enter 8 character opcode for vm: G1G1G1G!
+
+you entered: G1G1G1G!
+
+ opt[0]: G
+ opt[1]: 1
+ opt[2]: G
+ opt[3]: 1
+ opt[4]: G
+ opt[5]: 1
+ opt[6]: G
+ opt[7]: !
+ c: G
+ d: 1
+ c: G
+ d: 1
+ c: G
+ d: 1
+ c: G
+ d: -15
+main c: G
+main d: 1
+main c: G
+main d: 1
+main c: G
+main d: 1
+main c: G
+main d: -15
+ *c: G, lowkey[djk]: G
+ TODO - adjust number: 1
+ *c: G, lowkey[djk]: G
+ TODO - adjust number: 1
+ *c: G, lowkey[djk]: G
+ TODO - adjust number: 1
+ *c: G, lowkey[djk]: G
+ TODO - adjust number: -15
+block c: G
+block d: 1
+block c: G
+block d: 1
+block c: G
+block d: 1
+block c: G
+block d: -15
+pc: 8, cp: 6
+
+'merkle' decay to assign char positional code: 0
+pc: 8
+cp before g count: 6
+
+g: D
+
+g: D
+
+g: D
+
+g:
+CH(I)[pc:0]:
+CH(I)[8]: G1
+CH(I)[8]: G1
+CH(I)[8]: G1
+CH(I)[8]: G1
+CH(I)[8]: G4
+CH(I)[8]: G5
+CH(I)[8]: G6
+CH(I)[8]: G7
+CH(I)[pc:1]:
+CH(I)[8]: G0
+CH(I)[8]: G1
+CH(I)[8]: G2
+CH(I)[8]: G3
+CH(I)[8]: D4
+CH(I)[8]: K5
+CH(I)[8]: J6
+CH(I)[8]: D7
+CH(I)[pc:2]:
+CH(I)[8]: G0
+CH(I)[8]: G1
+CH(I)[8]: G2
+CH(I)[8]: G3
+CH(I)[8]: D100
+CH(I)[8]: K100
+CH(I)[8]: J100
+CH(I)[8]: D100
+CH(I)[pc:3]:
+CH(I)[8]: G0
+CH(I)[8]: G1
+CH(I)[8]: G2
+CH(I)[8]: G3
+CH(I)[8]: D100
+CH(I)[8]: K100
+CH(I)[8]: J100
+CH(I)[8]: D100
+CH(I)[pc:4]:
+CH(I)[8]: G0
+CH(I)[8]: G1
+CH(I)[8]: G2
+CH(I)[8]: G3
+CH(I)[8]: D100
+CH(I)[8]: K100
+CH(I)[8]: J100
+CH(I)[8]: D100
+CH(I)[pc:5]:
+CH(I)[8]: G0
+CH(I)[8]: G1
+CH(I)[8]: G2
+CH(I)[8]: G3
+CH(I)[8]: D100
+CH(I)[8]: D100
+CH(I)[8]: D100
+CH(I)[8]: D100
+CH(I)[pc:6]:
+CH(I)[8]: G0
+CH(I)[8]: G1
+CH(I)[8]: G2
+CH(I)[8]: G3
+CH(I)[8]: D108
+CH(I)[8]: D108
+CH(I)[8]: D108
+CH(I)[8]: 108
+CH(I)[pc:7]:
+CH(I)[8]: G1
+CH(I)[8]: G1
+CH(I)[8]: G1
+CH(I)[8]: G-15
+CH(I)[8]: G33
+CH(I)[8]: G33
+CH(I)[8]: G33
+CH(I)[8]: G33
+
+*code[0]: D
+
+Enter 8 character opcode for vm: G1G1G1G1
+
+you entered: G1G1G1G1
+
+ opt[0]: G
+ opt[1]: 1
+ opt[2]: G
+ opt[3]: 1
+ opt[4]: G
+ opt[5]: 1
+ opt[6]: G
+ opt[7]: 1
+ c: G
+ d: 1
+ c: G
+ d: 1
+ c: G
+ d: 1
+ c: G
+ d: 1
+main c: G
+main c: G
+main c: G
+main c: G
+ *c: G, lowkey[djk]: D
+ *c: G, lowkey[djk]: D
+ *c: G, lowkey[djk]: D
+ *c: G, lowkey[djk]:
+block c: G
+block d: 1
+block c: G
+block d: 1
+block c: G
+block d: 1
+block c: G
+block d: 1
+pc: 9, cp: 1
+
+'merkle' decay to assign char positional code: 4
+pc: 9
+cp before g count: 1
+
+g: D
+
+g: K
+
+g: J
+
+g: D
+CH(I)[pc:0]:
+CH(I)[9]: G1
+CH(I)[9]: G1
+CH(I)[9]: G1
+CH(I)[9]: G1
+CH(I)[9]: G4
+CH(I)[9]: G5
+CH(I)[9]: G6
+CH(I)[9]: G7
+CH(I)[pc:1]:
+CH(I)[9]: G0
+CH(I)[9]: G1
+CH(I)[9]: G2
+CH(I)[9]: G3
+CH(I)[9]: D4
+CH(I)[9]: K5
+CH(I)[9]: J6
+CH(I)[9]: D7
+CH(I)[pc:2]:
+CH(I)[9]: G0
+CH(I)[9]: G1
+CH(I)[9]: G2
+CH(I)[9]: G3
+CH(I)[9]: D100
+CH(I)[9]: K100
+CH(I)[9]: J100
+CH(I)[9]: D100
+CH(I)[pc:3]:
+CH(I)[9]: G0
+CH(I)[9]: G1
+CH(I)[9]: G2
+CH(I)[9]: G3
+CH(I)[9]: D100
+CH(I)[9]: K100
+CH(I)[9]: J100
+CH(I)[9]: D100
+CH(I)[pc:4]:
+CH(I)[9]: G0
+CH(I)[9]: G1
+CH(I)[9]: G2
+CH(I)[9]: G3
+CH(I)[9]: D100
+CH(I)[9]: K100
+CH(I)[9]: J100
+CH(I)[9]: D100
+CH(I)[pc:5]:
+CH(I)[9]: G0
+CH(I)[9]: G1
+CH(I)[9]: G2
+CH(I)[9]: G3
+CH(I)[9]: D100
+CH(I)[9]: D100
+CH(I)[9]: D100
+CH(I)[9]: D100
+CH(I)[pc:6]:
+CH(I)[9]: G0
+CH(I)[9]: G1
+CH(I)[9]: G2
+CH(I)[9]: G3
+CH(I)[9]: D108
+CH(I)[9]: D108
+CH(I)[9]: D108
+CH(I)[9]: 108
+CH(I)[pc:7]:
+CH(I)[9]: G1
+CH(I)[9]: G1
+CH(I)[9]: G1
+CH(I)[9]: G-15
+CH(I)[9]: G33
+CH(I)[9]: G33
+CH(I)[9]: G33
+CH(I)[9]: G33
+CH(I)[pc:8]:
+CH(I)[9]: D0
+CH(I)[9]: D1
+CH(I)[9]: D2
+CH(I)[9]: 3
+CH(I)[9]: G4
+CH(I)[9]: G5
+CH(I)[9]: G6
+CH(I)[9]: G7
+
+*code[0]: D
+
+Enter 8 character opcode for vm:
+
