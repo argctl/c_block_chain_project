@@ -141,8 +141,55 @@ void** ledger(char** history, int** results, char* code, int* variables, int pc,
   //void* change = input(cli());
   return ledge;
 }
+// TODO - PARAMETERS (int maxWhileIterationsTempChain, int* variableSeedArray, char* codeSeedArray)
+
+// TODO - return and set all variables, will require struct 
+//void** tar(int pc, int** results, int* values, char** history, char* code, int cp, void* change, int dk) {
+void tar(int pc, int** results, int* values, char** history, char* code, int cp, void* change, int dk) {
+}
+    
+   
+void chain(int* values, char* code) {
+  int pc = 0;
+  int cp = 0; // copy stopper counter
+  char** history = malloc(sizeof(char*));
+  int** results = malloc(sizeof(int*));
+  void* change;
+  int dk = 0;
+  while (1) {
+    char* code_seed = malloc(8 * sizeof(char));
+    int* variable_seed = malloc(8 * sizeof(int*));
+    for (int i = 0; i < 8; i++) {
+      variable_seed[i] = values[i];
+      printf("code[i]: %c", code[i]);
+      code_seed[i] = code[i];
+    }
+    void** ledge = ledger(history, results, code_seed, variable_seed, pc, cp);
+    results = *((int***)ledge);
+    history = *((char***)ledge + 1);
+    pc++;
+    change = (int*)input(cli()); // TODO - in this architecture
+    for (int i = 4; i < 8; i++) {
+      char* c = (char*)(change + ((i - 4) * (sizeof(int*) + sizeof(char))));
+      code_seed[i] = *c;
+      if (dk > 0) {
+        int* d = (int*)(change + ((i - 4) * (sizeof(int*) + sizeof(char))) + sizeof(char));
+        variable_seed[i] = dk;
+      }
+    }
+    dk = block(code_seed, variable_seed, change);
+    cp = cp <= 0 ? pc : cp - dk - 1;
+  }
+}
+
 
 int main() {
+  char* space = getenv("space");
+  // REVIEW - better style to parse list or better secret storage from different variables
+  int arg[] = {atoi(getenv("arg0")), atoi(getenv("arg1")), atoi(getenv("arg2")), atoi(getenv("arg3")), atoi(getenv("arg4")),  atoi(getenv("arg5")), atoi(getenv("arg6")), atoi(getenv("arg7"))};
+
+  chain(arg, space);
+  /*
   char array[8];
   int pc = 0;
   int cp = 0; // Can we set this to the size of history, and then count backwards until a change?
@@ -174,8 +221,6 @@ int main() {
       code_seed[i] = *c; 
       printf("\nmain c: %c", *c);
       if (dk > 0) {
-       // cp = 0;
-        //cp = pc;  
         int* d = (int*)(change + ((i - 4) * (sizeof(int*) + sizeof(char))) + sizeof(char));
         variable_seed[i] = dk;
         printf("\nmain d: %d", *d);
@@ -190,5 +235,6 @@ int main() {
     
     printf("\n'merkle' decay to assign char positional code: %d \n", dk);
   }
+  */
   return 0;
 }
