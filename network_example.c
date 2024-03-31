@@ -34,12 +34,11 @@ void call (Arg* arg) {
   return arg->inner(arg->arg, arg->eta, arg->buffer, arg->addr_size, arg->recv_len);
 }
 
-Arg createInner (void (*inner)(struct sockaddr*, int*, char*, socklen_t, ssize_t)) {
-  Arg* args = (Args*)malloc(sizeof(Arg));
+Arg* createInner (void (*inner)(struct sockaddr*, int*, char*, socklen_t, ssize_t)) {
+  Arg* args = (Arg*)malloc(sizeof(Arg));
   args->arg = (struct sockaddr*)malloc(sizeof(struct sockaddr_in));
   args->eta = (int*)malloc(sizeof(int));
   args->buffer = (char*)malloc(sizeof(char) * BUFSIZE);
-  args->ptr = (struct sockaddr*)malloc(sizeof(struct sockaddr_in));
   args->addr_size = sizeof(struct sockaddr_in);
   args->recv_len = 0;
   args->inner = inner;
@@ -49,7 +48,7 @@ Arg createInner (void (*inner)(struct sockaddr*, int*, char*, socklen_t, ssize_t
   //ssize_t recv_len;
   if ((*args->eta = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
     perror("cannot create socket");
-    return 0;
+    return args;
   }
   memset(&array, 0, sizeof(array));
   array.sin_family = AF_INET;
@@ -57,7 +56,7 @@ Arg createInner (void (*inner)(struct sockaddr*, int*, char*, socklen_t, ssize_t
   array.sin_addr.s_addr = htonl(INADDR_ANY);
   if (bind(*args->eta, (struct sockaddr *)&array, sizeof(array)) < 0) {
     perror("bind fail");
-    return 0;
+    return args;
   }
   printf("UDP listen on port %d", PORT);
   return args; 
@@ -95,6 +94,8 @@ int main() {
 
     // Listen for incoming datagrams
     while (1) {
+      //call(arg);
+      arg->inner(arg->arg, arg->eta, arg->buffer, arg->addr_size, arg->recv_len);
       //inner((struct sockaddr *)&arg, &eta, buffer, addr_size, recv_len);
       //inner(args->arg, args->eta, args->buffer, args->addr_size, args->recv_len);
         /*

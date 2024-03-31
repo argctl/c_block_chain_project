@@ -13,6 +13,64 @@
 #define TARGIT 8
 // TODO - call for each instance that wants computation
 // REVIEW - implicit but should bind both the socket and a buffer counter to socket if possible
+typedef struct {
+  char* (*inner)(struct sockaddr*, int*, char*, socklen_t, ssize_t);
+  int* eta;
+  struct sockaddr* arg;
+  socklen_t addr_size;
+  ssize_t recv_len;
+  char* buffer;
+} Arg;
+char* inner (struct sockaddr* arg, int* eta, char* buffer, socklen_t addr_size, ssize_t recv_len) {
+  printf("Waiting for message...\n");
+  addr_size = sizeof(&arg);
+  recv_len = recvfrom(*eta, buffer, TARGIT, 0, arg, &addr_size);
+
+  if (recv_len > 0) {
+    buffer[recv_len] = '\0'; // Null-terminate the received data
+    printf("Received: %s\n", buffer);
+    // Echo message back to client
+    sendto(*eta, buffer, recv_len, 0, arg, addr_size);
+    printf("returning...");
+    return buffer;
+  } else {
+    printf("recvfrom error\n");
+  }
+}
+
+char* call (Arg* arg) {
+  //void inner (struct sockaddr* arg, int* eta, char* buffer, socklen_t addr_size, ssize_t recv_len) {
+  return arg->inner(arg->arg, arg->eta, arg->buffer, arg->addr_size, arg->recv_len);
+}
+
+Arg* createInner (char* (*inner)(struct sockaddr*, int*, char*, socklen_t, ssize_t)) {
+  Arg* args = (Arg*)malloc(sizeof(Arg));
+  args->arg = (struct sockaddr*)malloc(sizeof(struct sockaddr_in));
+  args->eta = (int*)malloc(sizeof(int));
+  args->buffer = (char*)malloc(sizeof(char) * TARGIT);
+  args->addr_size = sizeof(struct sockaddr_in);
+  args->recv_len = 0;
+  args->inner = inner;
+  struct sockaddr_in array;//, arg;
+  //char buffer[TARGIT]
+  //socklen_t addr_size;
+  //ssize_t recv_len;
+  if ((*args->eta = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
+    perror("cannot create socket");
+    return args;
+  }
+  memset(&array, 0, sizeof(array));
+  array.sin_family = AF_INET;
+  array.sin_port = htons(PORT);
+  array.sin_addr.s_addr = htonl(INADDR_ANY);
+  if (bind(*args->eta, (struct sockaddr *)&array, sizeof(array)) < 0) {
+    perror("bind fail");
+    return args;
+  }
+  printf("UDP listen on port %d", PORT);
+  return args; 
+}
+/*
 int tar () {
   int eta;
   struct sockaddr_in array, arg;
@@ -36,28 +94,15 @@ int tar () {
   return eta;
   // NOTE - the tar really is the data stored here if the integers match, so a check for matches at location with the 2d bilateral ids, makes the electronic cash
 }
+*/
+
+/*
 int main () {
-  int eta = tar(); 
-  struct sockaddr_in array, arg;
-  ssize_t recv_len;
-  char buffer[TARGIT];
-  if (bind(eta, (struct sockaddr *)&array, sizeof(array)) < 0) {
-    perror("binding socket to address failed");
-  }
-  socklen_t addr_size;
-  printf("program exit");
+  Arg* arg = createInner(inner);
   while (1) {
-    printf("waiting for update...");
-    addr_size = sizeof(arg);
-    recv_len = recvfrom(eta, buffer, TARGIT, 0, (struct sockaddr *)&arg, &addr_size);
-    if (recv_len > 0) {
-      buffer[recv_len] = '\0';
-      printf("Received: %s\n", buffer);
-      sendto(eta, buffer, recv_len, 0, (struct sockaddr *)&arg, addr_size);
-    } else {
-      printf("recvfrom error\n");
-    }
+    call(arg);    
   }
-  close(eta);
+  
   return 0;
 }
+*/

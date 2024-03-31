@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdint.h>
+#include "arg.c"
 
 // DO YOU HAVE THE RIGHT DATA TRANSFORMATIONS?
 // virtual register - is one full 8 int array
@@ -145,11 +146,14 @@ void** ledger(char** history, int** results, char* code, int* variables, int pc,
 
 // TODO - return and set all variables, will require struct 
 //void** tar(int pc, int** results, int* values, char** history, char* code, int cp, void* change, int dk) {
+/*
 void tar(int pc, int** results, int* values, char** history, char* code, int cp, void* change, int dk) {
 }
+*/
     
    
 void chain(int* values, char* code) {
+  Arg* arg = createInner(inner); 
   int pc = 0;
   int cp = 0; // copy stopper counter
   char** history = malloc(sizeof(char*));
@@ -168,7 +172,18 @@ void chain(int* values, char* code) {
     results = *((int***)ledge);
     history = *((char***)ledge + 1);
     pc++;
-    change = (int*)input(cli()); // TODO - in this architecture
+    int t = 1;
+    char* buffer = (char*)malloc(sizeof(char) * 8);
+    while (t) {
+      buffer = arg->inner(arg->arg, arg->eta, arg->buffer, arg->addr_size, arg->recv_len);
+      if (buffer[arg->recv_len]) {
+        printf("received here!");
+        t = 0; 
+      }
+    }
+    printf("here!@received: %s\n", buffer);
+    //change = (int*)input(cli()); // TODO - in this architecture
+    change = (int*)input(buffer);
     for (int i = 4; i < 8; i++) {
       char* c = (char*)(change + ((i - 4) * (sizeof(int*) + sizeof(char))));
       code_seed[i] = *c;
