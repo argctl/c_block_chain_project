@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include "arg.c"
+#include "array.c"
 
 // DO YOU HAVE THE RIGHT DATA TRANSFORMATIONS?
 // virtual register - is one full 8 int array
@@ -29,7 +30,17 @@
 // pass the memory address in, copy, then change
 //block(chars, sums, change);
 
-int block(char* lowkey, int* keylow, void* change) {
+void tag (char g, int _t, char i, int _a, char t, int _r, char a, int _g) {
+  //char* gtiatrag = (char*)malloc(sizeof(char) * 8);
+  char t_ = _t;
+  char a_ = _a;
+  char r_ = _r;
+  char g_ = _g;
+  char gtiatrag[] = {g, t_, i, a_, t, r_, a, g_};
+  array(gtiatrag);
+}
+
+int block (char* lowkey, int* keylow, void* change) {
   int djk = 0;
   int dk = 0;
 
@@ -95,7 +106,10 @@ void** ledger(char** history, int** results, char* code, int* variables, int pc,
   // advertise segments on network to connect chains
   history = realloc(history, sizeof(char*) * (pc + 1));
   results = realloc(results, sizeof(int*) * (pc + 1));
-
+  
+  //tag('G', 1, 'G', 1, 'G', 1, 'G', 1);
+  if (pc > atoi(getenv("GAT"))) tag(history[pc - 1][0], results[pc - 1][0], history[pc - 1][1], results[pc - 1][1], history[pc - 1][2], results[pc - 1][2], history[pc - 1][3], results[pc - 1][3]);
+  //if (atoi(getenv("GAT"))) tag(*history[0 + 4], *results[0 + 4], *history[1 + 4], *results[1 + 4], *history[2 + 4], *results[2 + 4], *history[3 + 4], *results[3 + 4]);
   printf("\ncp before g count: %d\n ", cp);
   for (int i = 0; i < 8; i++) {
     char g;
