@@ -1,5 +1,6 @@
+#include <stdlib.h>
 #include "array.c"
 
 int main () {
-  array("G1G1G1G1");
+  array(getenv("GG"));
 }
