@@ -112,7 +112,7 @@ void** ledger(char** history, int** results, char* code, int* variables, int pc,
   results = realloc(results, sizeof(int*) * (pc + 1));
   
   //tag('G', 1, 'G', 1, 'G', 1, 'G', 1);
-  if (pc > atoi(getenv("GAT"))) tag(history[pc - 1][0], results[pc - 1][0], history[pc - 1][1], results[pc - 1][1], history[pc - 1][2], results[pc - 1][2], history[pc - 1][3], results[pc - 1][3]);
+  if (pc > atoi(getenv("GAT")) && strcmp(getenv("GAT"), "TAG") != 0) tag(history[pc - 1][0], results[pc - 1][0], history[pc - 1][1], results[pc - 1][1], history[pc - 1][2], results[pc - 1][2], history[pc - 1][3], results[pc - 1][3]);
   //if (atoi(getenv("GAT"))) tag(*history[0 + 4], *results[0 + 4], *history[1 + 4], *results[1 + 4], *history[2 + 4], *results[2 + 4], *history[3 + 4], *results[3 + 4]);
   printf("\ncp before g count: %d\n ", cp);
   for (int i = 0; i < 8; i++) {
