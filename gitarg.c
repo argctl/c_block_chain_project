@@ -49,10 +49,14 @@ int block (char* lowkey, int* keylow, void* change) {
     int* d = (int*)(change + (djk * (sizeof(int*) + sizeof(char))) + sizeof(char)); 
     printf("\n *c: %c, lowkey[djk]: %c", *c, lowkey[djk]);
     if (lowkey[djk] == *c) {
-      printf("\n TODO - adjust number: %d", *d);
+      //printf("\n TODO - adjust number: %d", *d);
       keylow[djk] = *d;
     } else {
       dk += *d;
+    }
+    printf("\n keylow[djk]: %d, *d: %d \n", keylow[djk], *d);
+    if (keylow[djk] == *d) {
+      keylow[djk + 4] = *c;      
     }
     djk++;
   }
@@ -218,52 +222,5 @@ int main() {
   int arg[] = {atoi(getenv("arg0")), atoi(getenv("arg1")), atoi(getenv("arg2")), atoi(getenv("arg3")), atoi(getenv("arg4")),  atoi(getenv("arg5")), atoi(getenv("arg6")), atoi(getenv("arg7"))};
 
   chain(arg, space);
-  /*
-  char array[8];
-  int pc = 0;
-  int cp = 0; // Can we set this to the size of history, and then count backwards until a change?
-  char** history = malloc(sizeof(char*));
-  int** results = malloc(sizeof(int*));
-  void* change;
-  int dk = 0; 
-  while (1) {
-    // if djk > 0, random split on next variable_seed, magic numbers on back half append loop
-    char* code_seed = malloc(8 * sizeof(char)); // *?
-    int* variable_seed = malloc(8 * sizeof(int*));
-    printf("pc: %d", pc);
-    memset(array, 'G', sizeof(array));
-    for (int i = 0; i < 8; i++) {
-      variable_seed[i] = i;
-    }
-    for (int i = 0; i < 8; i++) {
-      code_seed[i] = array[i];
-      if (i == 7) code_seed[i] = 'H';
-    }
-    
-    void** ledge = ledger(history, results, code_seed, variable_seed, pc, cp);
-    results = *((int***)ledge);
-    history = *((char***)(ledge + 1));
-    pc++;
-    change = (int*)input(cli());
-    for (int i = 4; i < 8; i++) {
-      char* c = (char*)(change + ((i - 4) * (sizeof(int*) + sizeof(char)))); 
-      code_seed[i] = *c; 
-      printf("\nmain c: %c", *c);
-      if (dk > 0) {
-        int* d = (int*)(change + ((i - 4) * (sizeof(int*) + sizeof(char))) + sizeof(char));
-        variable_seed[i] = dk;
-        printf("\nmain d: %d", *d);
-      }
-    }
-    dk = block(code_seed, variable_seed, change);
-    //cp++;
-    cp = cp <= 0 ? pc : cp - dk - 1;
-    // negative value iterate by counting to 0, take absolute value, not as predictable. 
-    printf("\npc: %d, cp: %d\n", pc, cp);
-    // TODO - send/create/add virtual register with change op codes and values from variable_seed in ledger
-    
-    printf("\n'merkle' decay to assign char positional code: %d \n", dk);
-  }
-  */
   return 0;
 }
