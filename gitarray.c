@@ -37,7 +37,7 @@ char** gitarray (char** history, int** results, int x, int y) {
 Arg* gitar (int x, int y) {
   int* tar = (int*)malloc(sizeof(int));
   *tar = x * y * 16;
-  Arg* arg = createInner(inner, 9339, tar);
+  Arg* arg = createInner(inner);
   return arg;
 }
 
