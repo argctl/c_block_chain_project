@@ -220,7 +220,6 @@ int main() {
   char* space = getenv("space");
   // REVIEW - better style to parse list or better secret storage from different variables
   int arg[] = {atoi(getenv("arg0")), atoi(getenv("arg1")), atoi(getenv("arg2")), atoi(getenv("arg3")), atoi(getenv("arg4")),  atoi(getenv("arg5")), atoi(getenv("arg6")), atoi(getenv("arg7"))};
-
   chain(arg, space);
   return 0;
 }
