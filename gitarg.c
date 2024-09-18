@@ -1,3 +1,4 @@
+#include <pthread.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -215,11 +216,32 @@ void chain(int* values, char* code) {
   }
 }
 
+void* rig() {
+  while (1) {
+    char* tar = getenv("TAR");
+    array(tar);
+  }
+}
 
-int main() {
+void* unrig() {
   char* space = getenv("space");
   // REVIEW - better style to parse list or better secret storage from different variables
   int arg[] = {atoi(getenv("arg0")), atoi(getenv("arg1")), atoi(getenv("arg2")), atoi(getenv("arg3")), atoi(getenv("arg4")),  atoi(getenv("arg5")), atoi(getenv("arg6")), atoi(getenv("arg7"))};
+
   chain(arg, space);
+}
+
+int main() {
+  pthread_t r, a;
+  if (pthread_create(&r, NULL, rig, NULL)) {
+    fprintf(stderr, "Error creating thread \n");
+  } 
+  if (pthread_create(&a, NULL, unrig, NULL)) {
+    fprintf(stderr, "Error creating thread \n");
+  } 
+
+  pthread_join(r, NULL);
+  pthread_join(a, NULL);
+
   return 0;
 }
