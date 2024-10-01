@@ -219,7 +219,11 @@ void chain(int* values, char* code) {
 void* rig() {
   while (1) {
     char* tar = getenv("TAR");
-    array(tar);
+    if (atoi(getenv("ETA")) == 1) {
+      array(tar);
+    } else {
+      array(tar);
+    }
   }
 }
 
