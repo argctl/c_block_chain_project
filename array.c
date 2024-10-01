@@ -28,11 +28,6 @@ void array (char* ctl) {
   serverAddress.sin_addr.s_addr = INADDR_ANY; //inet_addr("127.0.0.1");
 
 
-  if (bind(arg, (struct sockaddr *)&serverAddress, sizeof(serverAddress)) < 0) {
-    perror("Bind failed");
-    close(arg);
-  }
-
   ssize_t bytes = sendto(arg, tar, strlen(tar), 0, (const struct sockaddr *) &serverAddress, sizeof(serverAddress));
   /*
   if (bytes < 0) {
