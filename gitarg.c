@@ -48,14 +48,14 @@ int block (char* lowkey, int* keylow, void* change) {
   while (djk != 4) {
     char* c = (char*)(change + (djk * (sizeof(int*) + sizeof(char))));  
     int* d = (int*)(change + (djk * (sizeof(int*) + sizeof(char))) + sizeof(char)); 
-    printf("\n *c: %c, lowkey[djk]: %c", *c, lowkey[djk]);
+    //printf("\n *c: %c, lowkey[djk]: %c", *c, lowkey[djk]);
     if (lowkey[djk] == *c) {
       //printf("\n TODO - adjust number: %d", *d);
       keylow[djk] = *d;
     } else {
       dk += *d;
     }
-    printf("\n keylow[djk]: %d, *d: %d \n", keylow[djk], *d);
+    //printf("\n keylow[djk]: %d, *d: %d \n", keylow[djk], *d);
     if (keylow[djk] == *d) {
       keylow[djk + 4] = *c;      
     }
@@ -147,12 +147,12 @@ void** ledger(char** history, int** results, char* code, int* variables, int pc,
     //printf("dk: %p, *dk: %d", dk, *dk);
     //printf("\nresults[%d]: %d", j, *dk);
     //printf("\nhistory[%d]: %c", j, history[j][0]);
-    printf("CH(I)[pc:%d]: \n", j);
+    //printf("CH(I)[pc:%d]: \n", j);
     for (int i = 0; i < 8; i++) {
-      printf("CH(I)[%d]: ", pc);
-      printf("%c", cc[i]);
-      printf("%d", dk[i]);
-      printf("\n");
+      //printf("CH(I)[%d]: ", pc);
+      //printf("%c", cc[i]);
+      //printf("%d", dk[i]);
+      //printf("\n");
     }
   }
   *((int***)ledge) = results;
